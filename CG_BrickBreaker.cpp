@@ -98,7 +98,7 @@ void reshape(int x, int y) {                                            // Calle
 	glMatrixMode(GL_MODELVIEW);                                        // Go to 3D mode.
 	glLoadIdentity();                                                // Reset the 3D matrix.
 	glViewport(0, 0, x, y);                                            // Configure the camera frame dimensions.
-	gluLookAt(0.0, 0.0, 35.0,                                        // Where the camera is.
+	gluLookAt(0.0, 0.0, 5.0,                                        // Where the camera is.
 		0.0, 0.0, 0.0,                                                // To where the camera points at.
 		0.0, 1.0, 0.0);                                                // "UP" vector.
 	display();
