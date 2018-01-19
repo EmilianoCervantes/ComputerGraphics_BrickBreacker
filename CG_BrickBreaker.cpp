@@ -32,6 +32,11 @@ float offsety = 1.0f;
 float playerX = 0.0f;
 float playerY = 0.0f;
 
+float ballX = 0.0f;
+float ballY = 0.0f;
+float ballRadius = 0.2f;
+float ballAngle = 45.0f;
+
 int wall[HEIGHT][WIDTH];
 float colorsR[HEIGHT][WIDTH];
 float colorsG[HEIGHT][WIDTH];
@@ -42,15 +47,15 @@ void init() { // FOR GLUT LOOP
 	glClearColor(0.15, 0.15, 0.15, 0.0);    // Clear the color state.
 	glMatrixMode(GL_MODELVIEW);            // Go to 3D mode.
 	glLoadIdentity();                    // Reset 3D view matrix.
-	
-	//Generate bricks
+
+										 //Generate bricks
 	for (int row = 0; row < HEIGHT; row++)
 	{
 		for (int col = 0; col < WIDTH; col++)
 		{
 			wall[row][col] = 1;
 			//Just rand gives an integer, have to define for 0..RAN_MAX - 0..1
-			colorsR[row][col] = (float)(rand()/ RAND_MAX);
+			colorsR[row][col] = (float)(rand() / RAND_MAX);
 			colorsG[row][col] = (float)rand() / RAND_MAX;
 			colorsB[row][col] = (float)rand() / RAND_MAX;
 		}
@@ -62,9 +67,9 @@ void drawSquare(float x, float y, float w, float h, float r, float g, float b) {
 	glBegin(GL_POLYGON);
 	{
 		glVertex3f(x, y, 0);
-		glVertex3f(x+w, y, 0);
-		glVertex3f(x+w, y+h, 0);
-		glVertex3f(x, y+h, 0);
+		glVertex3f(x + w, y, 0);
+		glVertex3f(x + w, y + h, 0);
+		glVertex3f(x, y + h, 0);
 	}
 	glEnd();
 }
@@ -72,14 +77,14 @@ void drawSquare(float x, float y, float w, float h, float r, float g, float b) {
 void display() {                            // Called for each frame (about 60 times per second).
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);                // Clear color and depth buffers.
 
-	//bricks
+																	   //bricks
 	for (int row = 0; row < HEIGHT; row++)
 	{
 		for (int col = 0; col < WIDTH; col++)
 		{
 			if (wall[row][col] == 1)
 			{
-				drawSquare(offsetx + col*cellWidth,offsety + row*cellHeight,cellWidth,cellHeight,colorsR[row][col],colorsB[row][col],colorsG[row][col]);
+				drawSquare(offsetx + col*cellWidth, offsety + row*cellHeight, cellWidth, cellHeight, colorsR[row][col], colorsB[row][col], colorsG[row][col]);
 			}
 		}
 	}
@@ -88,6 +93,7 @@ void display() {                            // Called for each frame (about 60 t
 }
 
 void idle() {                                                            // Called when drawing is finished.
+																		 //printf("%3f -- %.3f\n",offsetx,offsety);
 	glutPostRedisplay();                                            // Display again.
 }
 
